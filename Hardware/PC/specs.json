@@ -1,0 +1,251 @@
+{
+  "captured": "2026-08-26",
+  "captureMethod": "Live system inspection via WMI/CIM, registry, PnP enumeration, nvidia-smi, and Steam VDF manifests. Read-only.",
+  "note": "Machine-readable rig inventory. Narrative and findings live in ../KNOWN_ISSUES.md and NVIDIA_DISPLAY_CONFIG.md.",
+
+  "system": {
+    "os": { "name": "Windows 11 Pro", "version": "10.0.26200", "accountType": "local (non-domain)" },
+    "motherboard": {
+      "manufacturer": "ASUSTeK COMPUTER INC.",
+      "product": "TUF GAMING Z790-PRO WIFI",
+      "revision": "Rev 1.xx",
+      "serial": "231028215201103"
+    },
+    "bios": {
+      "version": "1402",
+      "releaseDate": "2023-09-08",
+      "vendor": "American Megatrends Inc.",
+      "internalVersion": "ALASKA - 1072009",
+      "status": "STALE - predates all Intel Raptor Lake microcode mitigations"
+    }
+  },
+
+  "cpu": {
+    "model": "Intel Core i7-14700KF",
+    "codename": "Raptor Lake Refresh",
+    "socket": "LGA1700",
+    "cores": 20,
+    "logicalProcessors": 28,
+    "coreLayout": "8 P-cores (16 threads) + 12 E-cores",
+    "maxClockSpeedMHz": 3400,
+    "l2CacheKB": 28672,
+    "l3CacheKB": 33792,
+    "processorId": "BFEBFBFF000B0671",
+    "identifier": "Intel64 Family 6 Model 183 Stepping 1",
+    "microcode": {
+      "revision": "0x11D",
+      "rawBytesLittleEndian": "1D 01 00 00",
+      "previousRevision": "0x11D",
+      "status": "PRE-MITIGATION",
+      "note": "Intel degradation fixes are 0x125 / 0x129 / 0x12B - all newer than this. No OS-level microcode load supersedes the BIOS revision."
+    }
+  },
+
+  "memory": {
+    "totalBytes": 68719476736,
+    "totalGB": 64,
+    "slotsPopulated": 2,
+    "slotsTotal": 4,
+    "maxCapacityGB": 256,
+    "channelConfig": "dual-channel, one module per memory controller",
+    "xmpActive": false,
+    "modules": [
+      {
+        "slot": "Controller0-DIMM1", "bank": "BANK 0",
+        "manufacturer": "Corsair", "partNumber": "CMK64GX5M2B5600C40",
+        "capacityGB": 32, "type": "DDR5",
+        "ratedSpeedMTs": 4800, "configuredSpeedMTs": 4800, "configuredVoltageMV": 1100
+      },
+      {
+        "slot": "Controller1-DIMM1", "bank": "BANK 0",
+        "manufacturer": "Corsair", "partNumber": "CMK64GX5M2B5600C40",
+        "capacityGB": 32, "type": "DDR5",
+        "ratedSpeedMTs": 4800, "configuredSpeedMTs": 4800, "configuredVoltageMV": 1100
+      }
+    ],
+    "anomaly": "Kit part number CMK64GX5M2B5600C40 designates DDR5-5600 CAS40. Both modules run at the JEDEC 4800 baseline at 1.100 V. XMP is not enabled - roughly 14% of rated memory bandwidth unused."
+  },
+
+  "storage": {
+    "physicalDisks": [
+      {
+        "deviceId": 0,
+        "model": "WD_BLACK SN850X 4000GB",
+        "mediaType": "SSD", "busType": "NVMe",
+        "sizeGB": 3726.02,
+        "health": "Healthy", "operationalStatus": "OK",
+        "partitionStyle": "GPT", "partitions": 3,
+        "temperatureC": 43, "temperatureMaxC": 90, "wear": 0,
+        "pcieDevice": "VEN_15B7&DEV_5030"
+      }
+    ],
+    "volumes": [
+      { "letter": "C", "fileSystem": "NTFS", "sizeGB": 3724.97, "freeGB": 2585.48, "health": "Healthy" }
+    ],
+    "note": "Single drive system. SATA AHCI controller and Intel RST VMD controller both present with no attached drives."
+  },
+
+  "gpu": {
+    "model": "NVIDIA GeForce RTX 4070 Ti SUPER",
+    "vramMiB": 16376,
+    "vbios": "95.03.45.00.9a",
+    "driver": { "nvidiaVersion": "591.86", "windowsVersion": "32.0.15.9186", "date": "2026-01-20", "status": "stale" },
+    "availableUpdate": { "version": "610.88", "released": "2026-07-28" },
+    "pnpDeviceId": "PCI\\VEN_10DE&DEV_2705&SUBSYS_89571043&REV_A1",
+    "powerLimitW": 285,
+    "overclock": { "gpuOffsetMHz": 0, "vramOffsetMHz": 0, "automaticTuning": false },
+    "limits": { "voltageMaxPercent": 0, "powerMaxPercent": 100, "temperatureTargetC": 84, "fanSpeedTarget": "Automatic" },
+    "loadSample": { "context": "F1 23 running", "utilizationPercent": 98, "vramUsedMiB": 10913, "vramFreeMiB": 5149, "powerDrawW": 266, "temperatureC": 64 }
+  },
+
+  "display": {
+    "count": 1,
+    "model": "Samsung LS49AG95",
+    "commonName": "Odyssey Neo G9 49\"",
+    "manufacturer": "SAM",
+    "productCode": "71AA",
+    "serial": "HNTW700773",
+    "manufactured": { "year": 2023, "week": 30 },
+    "nativeResolution": "5120x1440",
+    "megapixels": 7.37,
+    "refreshRange": { "minHz": 50, "maxHz": 143 },
+    "connector": {
+      "technology": "HDMI",
+      "videoOutputTechnologyCode": 5,
+      "driverClassification": "HDTV",
+      "issue": "Panel is G-SYNC Compatible certified over DisplayPort only. Over HDMI the driver classifies it as a television, greys out scaling control, and warns the display is not validated as G-SYNC compatible."
+    },
+    "colorOutput": { "format": "RGB", "depthBpc": 10, "desktopDepth": "32-bit", "dynamicRange": "Full", "accuracyMode": "Accurate", "hdrEnabledInWindows": false }
+  },
+
+  "pcie": {
+    "downstream": [
+      { "bus": 1, "device": 0, "function": 0, "name": "NVIDIA GeForce RTX 4070 Ti SUPER", "linkWidth": "x16", "maxGen": 4 },
+      { "bus": 1, "device": 0, "function": 1, "name": "High Definition Audio Controller (GPU)" },
+      { "bus": 2, "device": 0, "function": 0, "name": "Standard NVM Express Controller (WD SN850X)" },
+      { "bus": 6, "device": 0, "function": 0, "name": "Intel Ethernet Controller I226-V" },
+      { "bus": 7, "device": 0, "function": 0, "name": "VIA USB 3.0 eXtensible Host Controller" }
+    ],
+    "wheaErrors": {
+      "eventId": 17,
+      "severity": "corrected",
+      "source": "PCI Express Root Port #5 (0:1C.4, DEV_7A3C, chipset port)",
+      "pattern": "bursts of 3-6 events",
+      "downstreamCandidates": ["Intel I226-V Ethernet", "VIA USB 3.0 controller"]
+    }
+  },
+
+  "network": [
+    { "name": "Wi-Fi", "adapter": "Intel Wi-Fi 6E AX211 160MHz", "status": "Up", "linkSpeed": "865 Mbps - 1.3 Gbps", "inUse": true },
+    { "name": "Ethernet", "adapter": "Intel Ethernet Controller I226-V", "status": "Disconnected", "inUse": false },
+    { "name": "Bluetooth PAN", "adapter": "Bluetooth Device (Personal Area Network)", "status": "Disconnected", "inUse": false }
+  ],
+
+  "power": { "activeScheme": "High performance", "schemeGuid": "8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c" },
+
+  "peripherals": {
+    "note": "Presence reflects what was enumerated on the USB bus at capture time. The wheelbase, motion platform and TrackIR were NOT present - most likely powered down rather than faulty. Re-verify with the rig powered.",
+    "present": [
+      { "role": "pedals", "name": "MOZA CRP", "vid": "346E", "pid": "0001", "serial": "330032000B57465238333420", "extra": "exposes USB serial COM6" },
+      { "role": "hub", "name": "MOZA Universal HUB", "vid": "346E", "pid": "0020", "serial": "290029000851303335333433", "extra": "two HID game controller collections, USB serial COM8" },
+      { "role": "button deck", "name": "Elgato Stream Deck XL", "vid": "0FD9", "pid": "008F", "serial": "A00NA34134COTF" },
+      { "role": "keyboard", "name": "Corsair K57 RGB Wireless", "vid": "1B1C", "pid": "1B6E" },
+      { "role": "mouse", "name": "Logitech G903 LIGHTSPEED", "vid": "046D", "pid": "C091" },
+      { "role": "headset", "name": "Logitech PRO X 2 LIGHTSPEED", "vid": "046D", "pid": "0AF7" },
+      { "role": "rgb", "name": "ASUS AURA LED Controller", "vid": "0B05", "pid": "19AF" }
+    ],
+    "notPresentAtCapture": [
+      { "role": "wheelbase", "name": "MOZA R12", "vid": "346E", "pid": "0006", "registeredAlsoAs": "0016", "knownSerials": ["32004D000A51303335333433", "004D00323330510A33343335"] },
+      { "role": "head tracking", "name": "TrackIR 5", "vid": "131D", "note": "software installed, camera never connected" },
+      { "role": "motion platform", "name": "Next Level Racing", "note": "no USB or HID device enumerated, though Platform Manager runs" }
+    ],
+    "registeredGameControllers": {
+      "VID_346E&PID_0001": "MOZA CRP pedals",
+      "VID_346E&PID_0006": "MOZA R12 Base",
+      "VID_346E&PID_0016": "MOZA R12 Base",
+      "VID_346E&PID_0020": "Universal HUB"
+    }
+  },
+
+  "software": {
+    "simTooling": [
+      { "name": "SimHub", "version": "9.11.1", "path": "C:\\Program Files (x86)\\SimHub\\", "note": "plugins live at install root, not a Plugins folder; add-ons in _Addons, per-game data in PluginsData (F12023, IRacing, AssettoCorsa, ACC)" },
+      { "name": "SimHub USBD480 Screen driver", "version": "0.1.10.1" },
+      { "name": "MOZA Pit House", "version": "1.0.1", "path": "C:\\Program Files (x86)\\MOZA Pit House admin", "running": false },
+      { "name": "Next Level Racing Platform Manager", "version": "2.185.1.316946", "path": "C:\\Program Files\\Next Level Racing\\Platform Manager", "running": true, "startupArgs": "--silent", "warning": "Runs as TWO processes in normal operation. Killing one breaks the motion seat." },
+      { "name": "TrackIR 5", "version": "5.4.2.0000" },
+      { "name": "NaturalPoint USB Drivers x64", "version": "2.70.0000" },
+      { "name": "Content Manager", "version": "portable", "path": "C:\\Users\\simracing\\Desktop\\Content Manager.exe", "data": "%LOCALAPPDATA%\\AcTools Content Manager" }
+    ],
+    "peripheralSoftware": [
+      { "name": "Corsair iCUE5", "version": "5.19.104", "running": true },
+      { "name": "Elgato Stream Deck", "version": "7.5.1.22901", "running": true },
+      { "name": "Elgato Control Center", "version": "1.9.0.818" },
+      { "name": "Logitech G HUB", "version": "2026.5.939708", "running": true },
+      { "name": "Logitech Unifying", "version": "2.52.33" }
+    ],
+    "notInstalled": ["CrewChief", "Fanatec drivers", "ForceSeat / MotionSystems (no uninstall entry, though a ForceSeatPM config folder exists)"],
+    "unwanted": [
+      { "name": "ESET Security", "status": "licence expired Sept 2025, still running", "services": ["ekrn", "efwd", "ekrnEpfw"], "filterDriver": "eamonm (altitude 328700, above Defender WdFilter at 328010)", "autostart": "HKLM Run: egui -> ecmds.exe /run /hide /proxy" },
+      { "name": "ASUS Armoury Crate + Aura stack", "status": "services set to Manual and processes killed 2026-08-26; 11 scheduled tasks still enabled and will relaunch on reboot" }
+    ]
+  },
+
+  "simLibrary": {
+    "steamPath": "C:\\Program Files (x86)\\Steam",
+    "libraryFolders": ["C:\\Program Files (x86)\\Steam"],
+    "totalInstalledGB": 810.8,
+    "appCount": 16,
+    "accounts": [
+      { "steamId64": "76561199640564254", "accountName": "simracing_colot1978ac", "personaName": "lgamer74", "autoLogin": true, "lastSeen": "2026-08-25", "owner": "Leo" },
+      { "steamId64": "76561199114441098", "accountName": "alexandrecolot78", "personaName": "Tes_", "autoLogin": false, "lastSeen": "2025-06-28", "owner": "Alexandre" },
+      { "steamId64": "76561198732946306", "accountName": "ludog74", "personaName": "ludog74", "autoLogin": false, "lastSeen": "2026-08-19", "owner": "unknown", "ownsInstalledApps": 0 }
+    ],
+    "ownershipSplit": {
+      "simracing_colot1978ac": ["Automobilista 2", "F1 23", "Assetto Corsa", "Assetto Corsa Rally", "Assetto Corsa Competizione", "rFactor 2"],
+      "alexandrecolot78": ["iRacing", "DiRT Rally 2.0", "EA SPORTS WRC", "RaceRoom Racing Experience", "Assetto Corsa EVO", "DIRT 5", "KartKraft", "CarX Drift Racing Online", "Euro Truck Simulator 2"],
+      "consequence": "iRacing - the top training allocation - is owned by Alexandre's account, not the auto-login account. Launching it requires switching Steam logins. F1 23 and ACC are on Leo's own account."
+    },
+    "installed": [
+      { "appId": 1066890, "name": "Automobilista 2", "sizeGB": 142.1, "lastUpdated": "2026-07-27", "owner": "simracing_colot1978ac", "state": "clean", "note": "largest install, yet no Documents config folder exists - possibly never launched" },
+      { "appId": 690790, "name": "DiRT Rally 2.0", "sizeGB": 109.5, "lastUpdated": "2024-02-08", "owner": "alexandrecolot78", "state": "clean" },
+      { "appId": 266410, "name": "iRacing", "sizeGB": 103.3, "lastUpdated": "2024-02-13", "owner": "alexandrecolot78", "state": "clean", "note": "Steam build only; no standalone install. Documents\\iRacing\\Setups is empty, no telemetry folder." },
+      { "appId": 1849250, "name": "EA SPORTS WRC", "sizeGB": 90.3, "lastUpdated": "2024-06-28", "owner": "alexandrecolot78", "state": "DIRTY - StateFlags 1030, update required" },
+      { "appId": 2108330, "name": "F1 23", "sizeGB": 60.2, "lastUpdated": "2025-09-05", "owner": "simracing_colot1978ac", "state": "clean", "installDir": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\F1 23", "configDir": "C:\\Users\\simracing\\Documents\\My Games\\F1 23" },
+      { "appId": 211500, "name": "RaceRoom Racing Experience", "sizeGB": 59.7, "lastUpdated": "2024-04-07", "owner": "alexandrecolot78", "state": "clean" },
+      { "appId": 3058630, "name": "Assetto Corsa EVO", "sizeGB": 45.5, "lastUpdated": "2025-05-24", "owner": "alexandrecolot78", "state": "clean" },
+      { "appId": 244210, "name": "Assetto Corsa", "sizeGB": 41.9, "lastUpdated": "2024-09-01", "owner": "simracing_colot1978ac", "state": "clean" },
+      { "appId": 1038250, "name": "DIRT 5", "sizeGB": 39.0, "lastUpdated": "2024-02-08", "owner": "alexandrecolot78", "state": "clean" },
+      { "appId": 406350, "name": "KartKraft", "sizeGB": 35.3, "lastUpdated": "2024-02-07", "owner": "alexandrecolot78", "state": "clean" },
+      { "appId": 227300, "name": "Euro Truck Simulator 2", "sizeGB": 29.9, "lastUpdated": "2025-05-10", "owner": "alexandrecolot78", "state": "clean" },
+      { "appId": 3917090, "name": "Assetto Corsa Rally", "sizeGB": 23.0, "lastUpdated": "2025-12-22", "owner": "simracing_colot1978ac", "state": "clean" },
+      { "appId": 805550, "name": "Assetto Corsa Competizione", "sizeGB": 18.9, "lastUpdated": "2025-12-22", "owner": "simracing_colot1978ac", "state": "clean" },
+      { "appId": 635260, "name": "CarX Drift Racing Online", "sizeGB": 7.8, "lastUpdated": "2025-06-08", "owner": "alexandrecolot78", "state": "DIRTY - StateFlags 6, update queued" },
+      { "appId": 365960, "name": "rFactor 2", "sizeGB": 3.6, "lastUpdated": "2025-08-25", "owner": "simracing_colot1978ac", "state": "clean", "note": "base only, far below a normal full install" },
+      { "appId": 228980, "name": "Steamworks Common Redistributables", "sizeGB": 0.5, "owner": "simracing_colot1978ac", "state": "clean" }
+    ]
+  },
+
+  "configPaths": {
+    "f1_23_settings": "C:\\Users\\simracing\\Documents\\My Games\\F1 23\\hardwaresettings\\hardware_settings_config.xml",
+    "f1_23_benchmarks": "C:\\Users\\simracing\\Documents\\My Games\\F1 23\\benchmark",
+    "simhub": "C:\\Program Files (x86)\\SimHub",
+    "motionPlatform": "C:\\Users\\simracing\\Documents\\MotionSystems\\ForceSeatPM",
+    "assettoCorsa": "C:\\Users\\simracing\\Documents\\Assetto Corsa",
+    "acc": "C:\\Users\\simracing\\Documents\\Assetto Corsa Competizione",
+    "iracing": "C:\\Users\\simracing\\Documents\\iRacing",
+    "mozaPitHouse": "C:\\Users\\simracing\\Documents\\MOZA Pit House",
+    "contentManager": "C:\\Users\\simracing\\AppData\\Local\\AcTools Content Manager"
+  },
+
+  "anomalies": [
+    { "severity": "high", "area": "cpu", "issue": "BIOS 1402 (2023-09-08) with microcode 0x11D on an i7-14700KF. No Raptor Lake voltage mitigations applied in ~3 years of operation. CPU longevity risk." },
+    { "severity": "high", "area": "display", "issue": "49\" Neo G9 connected over HDMI and classified as HDTV. G-SYNC not validated on this link. Primary suspect for the F1 23 stutter." },
+    { "severity": "medium", "area": "memory", "issue": "DDR5-5600 kit running at JEDEC 4800. XMP disabled. ~14% memory bandwidth unused." },
+    { "severity": "medium", "area": "pcie", "issue": "Recurring WHEA Event 17 corrected errors in bursts from chipset Root Port #5." },
+    { "severity": "medium", "area": "security", "issue": "ESET running with an expired licence since Sept 2025, filter driver stacked above Defender. Pure overhead. Removal blocked on password-protected uninstall requiring Safe Mode." },
+    { "severity": "low", "area": "gpu", "issue": "Driver 591.86 dated 2026-01-20; 610.88 available since 2026-07-28. Was top DPC consumer at 1284 microseconds." },
+    { "severity": "low", "area": "steam", "issue": "EA SPORTS WRC (StateFlags 1030) and CarX (StateFlags 6) are not in a clean installed state." },
+    { "severity": "info", "area": "steam", "issue": "Three Steam accounts present; ludog74 owns none of the installed apps." }
+  ]
+}

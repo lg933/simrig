@@ -418,5 +418,5 @@ reasonable choice for unfamiliar new sims.
 
 ## Related
 
-- [`SETUP_AUDIT.md`](SETUP_AUDIT.md) — full rig hardware and software audit
-- [`Hardware/Button_Box/README.md`](Hardware/Button_Box/README.md) — power sequencing panel project
+- [`SETUP_AUDIT.md`](../SETUP_AUDIT.md) — full rig hardware and software audit
+- [`Button_Box/README.md`](../Button_Box/README.md) — power sequencing panel project

@@ -56,6 +56,42 @@ independent flip. Strong candidate for the 52.4 ms latency.
 transparent reflections **and DDGI**, on top of near-universal Ultra settings at 5120×1440. Explains
 the 96 % GPU load, and RT is a known source of random hitching (BVH rebuilds, DDGI probe updates).
 
+### Frametime evidence (benchmark run 2026-08-26 05:34)
+
+F1 23 writes a frametime CSV in benchmark mode:
+`Documents\My Games\F1 23\benchmark\Benchmark_2026-08-26_at_05-34-19_frametimes.csv`
+
+| Metric | Value |
+|---|---|
+| Sample | 1 392 frames over 17.3 s |
+| Mean | 12.40 ms (80.6 FPS) |
+| Median | 11.76 ms (85.1 FPS) |
+| Min | 10.63 ms |
+| p90 / p95 | 12.95 / **18.50** ms |
+| p99 (1 % low) | 19.93 ms (50.2 FPS) |
+| p99.9 (0.1 % low) | 25.05 ms |
+| **Max** | **94.77 ms** (10.6 FPS) |
+| Frames > 2× median | 4 |
+| Frames > 33 ms | 2 |
+
+**Reading it:**
+
+- **The bulk of the distribution is tight.** Median 11.76 ms with p90 at 12.95 ms — 90 % of frames sit
+  within 1.2 ms of each other. That is *good* frame pacing, not stutter.
+- **There is a cliff between p90 and p95** (12.95 → 18.50 ms). Roughly 5-10 % of frames take ~50 %
+  longer than median. That is real pacing inconsistency and is consistent with ray-tracing work
+  (BVH rebuilds / DDGI probe updates).
+- **The worst frames are clustered, not scattered.** The 94.77 ms spike at frame 543 is followed by a
+  recovery tail (frames 545-558 all elevated). One event with a tail, not random hitching.
+
+**Important caveat: this is benchmark mode, not racing.** The F1 23 benchmark is a scripted camera
+fly-through with cuts, and a large spike at a camera transition is expected. 17 seconds is also a
+very short sample. **This run does not reproduce the reported in-race stutter** — only 2 frames
+exceeded 33 ms in the whole capture.
+
+**Action:** capture frametimes during actual racing using CapFrameX or PresentMon. The in-game
+benchmark is the only thing that writes this CSV automatically, and it is not representative.
+
 ### Changes applied 2026-08-26 (no improvement yet)
 
 - ASUS bloat removed: 7 services → Manual, 17 processes killed (see [`SETUP_AUDIT.md`](SETUP_AUDIT.md))
