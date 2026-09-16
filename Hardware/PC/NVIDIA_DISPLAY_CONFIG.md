@@ -7,6 +7,8 @@ Full capture of the NVIDIA App configuration for the sim rig.
   Windows WMI where possible
 - **Purpose:** baseline reference for the F1 23 micro-stutter investigation, and a restore point if
   settings drift
+- **Superseded in part:** the display link changed from HDMI to DisplayPort on 2026-09-16. §1 and §2
+  describe the HDMI state and have not been re-captured. See [Issue #001](../../Issues/001-f1-23-micro-stutter.md).
 
 > ⚠️ Several values below are **misconfigured** and are the current leading explanation for the F1 23
 > stutter. See [§9 Findings](#9-findings--recommended-changes) before treating this as a good baseline.

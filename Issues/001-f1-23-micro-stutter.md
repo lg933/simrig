@@ -1,11 +1,6 @@
-# Known Issues
+# #001: F1 23 random micro-stutter
 
-Running log of unresolved or recurring problems on the rig, so they don't get re-investigated from
-scratch. Newest first.
-
----
-
-## #1 — F1 23 random micro-stutter · **OPEN**
+**Status:** OPEN
 
 **Opened:** 2026-08-26
 **Symptom:** Random micro-freezes / micro-stutter during play. Occurs in **races and free practice
@@ -94,7 +89,7 @@ benchmark is the only thing that writes this CSV automatically, and it is not re
 
 ### Changes applied 2026-08-26 (no improvement yet)
 
-- ASUS bloat removed: 7 services → Manual, 17 processes killed (see [`SETUP_AUDIT.md`](SETUP_AUDIT.md))
+- ASUS bloat removed: 7 services → Manual, 17 processes killed (see [`SETUP_AUDIT.md`](../Hardware/SETUP_AUDIT.md))
 - Xbox Game Bar / GameDVR disabled
 - Duplicate `PlatformManager` killed — **broke the motion seat, had to be restarted.** Two instances
   is this app's normal state; do not kill one
@@ -102,6 +97,15 @@ benchmark is the only thing that writes this CSV automatically, and it is not re
 - Global G-SYNC mode → **Full screen and windowed** (required: F1 23 runs borderless)
 - Driver profile: Vertical Sync → On, Power Management → Prefer maximum performance
 - In-game: FPS limit → On @ 138, in-game V-Sync → Off
+
+### Changes applied 2026-09-16
+
+- **HDMI → DisplayPort** (next step 4 below). ESET removed in the same session, see
+  [#004](004-eset-expired-licence.md). Stutter not yet re-tested after the switch.
+- To re-verify in NVIDIA App now that the link changed: the driver treats a new connector as a new
+  display, so the per-display G-SYNC toggle from 2026-08-26 may have reset. Check that the
+  *"not validated as G-SYNC compatible"* warning is gone, scaling controls are no longer greyed out,
+  and refresh reads 143 Hz in both NVIDIA App and Windows.
 
 ### Next steps, in order
 
@@ -112,10 +116,10 @@ benchmark is the only thing that writes this CSV automatically, and it is not re
 3. **Cadence test:** set refresh to 120 Hz and cap FPS at 60. Every frame then shows for exactly two
    refreshes, making clock-mismatch judder mathematically impossible. Smooth ⇒ confirmed sync problem
    ⇒ DisplayPort required. Still stuttering ⇒ not a sync problem at all.
-4. **Switch HDMI → DisplayPort.** Resolves the HDTV classification and the validation warning
-   together. ⚠️ Trade-off: this ultrawide cannot display WinRE / Safe Mode over DisplayPort (basic
-   display driver can't negotiate DSC). Keep the HDMI cable on the second input and switch inputs when
-   recovery is needed — Safe Mode is still required to remove ESET.
+4. ~~**Switch HDMI → DisplayPort.**~~ **Done 2026-09-16.** Resolves the HDTV classification and
+   the validation warning together. ⚠️ Trade-off: this ultrawide cannot display WinRE / Safe Mode
+   over DisplayPort (basic display driver can't negotiate DSC). Keep the HDMI cable on the second
+   input and switch inputs when recovery is needed. Effect on the stutter not yet reported.
 5. Update GPU driver 591.86 → 610.88. It was the top DPC consumer at 1 284 µs, the only driver over
    1 ms. Do this **after** the above so variables stay separated, and note that a *clean* install
    resets every NVIDIA setting listed here.
@@ -126,21 +130,3 @@ benchmark is the only thing that writes this CSV automatically, and it is not re
 - **SSR at Ultra and RT Reflections both enabled.** Same redundancy.
 - `Ombrage à taux variable` (VRS) is **Off** — turning it on would recover performance cheaply.
 - Motion blur at 20 — usually turned off entirely for sim racing.
-
----
-
-## Background: unrelated but tracked
-
-**Intel Raptor Lake mitigations missing.** i7-14700KF on BIOS **1402 (08-Sep-2023)**, microcode
-**0x11D**. Intel's degradation fixes are 0x125 / 0x129 / 0x12B — all newer. The chip has run ~3 years
-without the elevated-voltage protections. **Not believed to cause the stutter**, but should be fixed
-for CPU longevity. BIOS flash is a manual job.
-
-**WHEA Event 17 corrected PCIe errors**, in bursts, from Root Port #5 (`0:1C.4`, `DEV_7A3C` —
-chipset port). Downstream candidates: Intel I226-V Ethernet (disconnected, on Wi-Fi) or a VIA USB 3.0
-controller. Corrected, not fatal. Investigate via ASPM if it ever escalates.
-
-**ESET still fully installed and running** despite the licence expiring Sept 2025 — `ekrn`, `efwd`,
-`ekrnEpfw` active, `eamonm` filter stacked above Defender's `WdFilter`. Measured as *not* causing
-latency, but it is pure overhead. Removal blocked on password-protected uninstall requiring Safe Mode
-plus a display that can show it.

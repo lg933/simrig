@@ -1,7 +1,8 @@
 {
   "captured": "2026-08-26",
+  "lastUpdated": "2026-09-16",
   "captureMethod": "Live system inspection via WMI/CIM, registry, PnP enumeration, nvidia-smi, and Steam VDF manifests. Read-only.",
-  "note": "Machine-readable rig inventory. Narrative and findings live in ../KNOWN_ISSUES.md and NVIDIA_DISPLAY_CONFIG.md.",
+  "note": "Machine-readable rig inventory. Narrative and findings live in ../../Issues/ and NVIDIA_DISPLAY_CONFIG.md.",
 
   "system": {
     "os": { "name": "Windows 11 Pro", "version": "10.0.26200", "accountType": "local (non-domain)" },
@@ -110,10 +111,16 @@
     "megapixels": 7.37,
     "refreshRange": { "minHz": 50, "maxHz": 143 },
     "connector": {
-      "technology": "HDMI",
-      "videoOutputTechnologyCode": 5,
-      "driverClassification": "HDTV",
-      "issue": "Panel is G-SYNC Compatible certified over DisplayPort only. Over HDMI the driver classifies it as a television, greys out scaling control, and warns the display is not validated as G-SYNC compatible."
+      "technology": "DisplayPort",
+      "since": "2026-09-16",
+      "note": "Driver classification, G-SYNC validation status and reported refresh rate not re-captured since the switch. HDMI cable kept on the monitor's second input for WinRE / Safe Mode, which the panel cannot show over DisplayPort.",
+      "previous": {
+        "technology": "HDMI",
+        "until": "2026-09-16",
+        "videoOutputTechnologyCode": 5,
+        "driverClassification": "HDTV",
+        "issue": "Panel is G-SYNC Compatible certified over DisplayPort only. Over HDMI the driver classified it as a television, greyed out scaling control, and warned the display was not validated as G-SYNC compatible."
+      }
     },
     "colorOutput": { "format": "RGB", "depthBpc": 10, "desktopDepth": "32-bit", "dynamicRange": "Full", "accuracyMode": "Accurate", "hdrEnabledInWindows": false }
   },
@@ -186,7 +193,6 @@
     ],
     "notInstalled": ["CrewChief", "Fanatec drivers", "ForceSeat / MotionSystems (no uninstall entry, though a ForceSeatPM config folder exists)"],
     "unwanted": [
-      { "name": "ESET Security", "status": "licence expired Sept 2025, still running", "services": ["ekrn", "efwd", "ekrnEpfw"], "filterDriver": "eamonm (altitude 328700, above Defender WdFilter at 328010)", "autostart": "HKLM Run: egui -> ecmds.exe /run /hide /proxy" },
       { "name": "ASUS Armoury Crate + Aura stack", "status": "services set to Manual and processes killed 2026-08-26; 11 scheduled tasks still enabled and will relaunch on reboot" }
     ]
   },
@@ -240,10 +246,9 @@
 
   "anomalies": [
     { "severity": "high", "area": "cpu", "issue": "BIOS 1402 (2023-09-08) with microcode 0x11D on an i7-14700KF. No Raptor Lake voltage mitigations applied in ~3 years of operation. CPU longevity risk." },
-    { "severity": "high", "area": "display", "issue": "49\" Neo G9 connected over HDMI and classified as HDTV. G-SYNC not validated on this link. Primary suspect for the F1 23 stutter." },
+    { "severity": "low", "area": "display", "issue": "Switched from HDMI to DisplayPort 2026-09-16. Not yet re-captured: confirm the driver no longer classifies the panel as HDTV and that G-SYNC shows validated." },
     { "severity": "medium", "area": "memory", "issue": "DDR5-5600 kit running at JEDEC 4800. XMP disabled. ~14% memory bandwidth unused." },
     { "severity": "medium", "area": "pcie", "issue": "Recurring WHEA Event 17 corrected errors in bursts from chipset Root Port #5." },
-    { "severity": "medium", "area": "security", "issue": "ESET running with an expired licence since Sept 2025, filter driver stacked above Defender. Pure overhead. Removal blocked on password-protected uninstall requiring Safe Mode." },
     { "severity": "low", "area": "gpu", "issue": "Driver 591.86 dated 2026-01-20; 610.88 available since 2026-07-28. Was top DPC consumer at 1284 microseconds." },
     { "severity": "low", "area": "steam", "issue": "EA SPORTS WRC (StateFlags 1030) and CarX (StateFlags 6) are not in a clean installed state." },
     { "severity": "info", "area": "steam", "issue": "Three Steam accounts present; ludog74 owns none of the installed apps." }
