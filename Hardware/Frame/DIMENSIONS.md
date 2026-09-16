@@ -1,8 +1,8 @@
-# Frame measurements for the CATIA model
+# F-GT Elite 160: dimensions and measurement sheet
 
 Source data for modelling the Next Level Racing F-GT Elite 160 (Wheel Plate / bottom-mount edition).
 Vendor figures are copied from NLR's product page and manual. Everything else is measured on the
-rig with a tape and filled in here before any CATPart is drawn.
+rig with a tape and filled in here before any CATPart is drawn in `CAD/`.
 
 ## Vendor data (NLR product page, fetched 2026-09-16)
 

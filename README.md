@@ -29,9 +29,10 @@ Hardware/
 │   └── NVIDIA_DISPLAY_CONFIG.md   NVIDIA App capture, all tabs, with findings
 ├── Button_Box/
 │   └── README.md             hardware spec for the power sequencing panel
-└── Frame/                    local copy of the cockpit manual (gitignored, link above)
+└── Frame/
+    └── DIMENSIONS.md         NLR F-GT Elite 160 vendor specs + tape-measure sheet (manual PDF alongside, gitignored)
 Issues/                       one file per issue, numbered in opening order
-CAD/                          CATIA model of the rig, measurements.md holds the tape-measure sheet
+CAD/                          CATIA model of the rig
 Photos/                       rig photos and videos (not committed)
 ```
 
